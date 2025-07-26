@@ -3,6 +3,8 @@ const socketIo = require('socket.io');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+require('dotenv').config();
+
 const app = express();
 
 
