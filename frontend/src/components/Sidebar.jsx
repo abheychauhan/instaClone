@@ -53,7 +53,6 @@ export default function Sidebar() {
               <Link
                 key={item.path}
                 to={`${item.path}`}
-                state={{ open , setOpen }}
                 onClick={() => setOpen(false)}
                 className={`block py-2 px-3 rounded transition flex gap-4 items-center justify-left ${
                   location.pathname === item.path
