@@ -23,11 +23,11 @@ export default function Sidebar() {
   return (
   <>
       {/* Sidebar */}
-      <div className={` fixed top-0 left-0 h-full   p-4 lg:w-64 md:w-fit  z-50 transform transition-all duration-200 ease-in-out border-r-2 border-gray-200 ${open ? 'bg-gray-300 md:translate-x-0 sm:translate-x-85 translate-x-30 ' : 'translate-x-186'} md:translate-x-0`}>
+      <div className={` fixed top-0 left-0 h-full z-99   p-4 lg:w-64 md:w-fit  z-50 transform transition-all duration-200 ease-in-out border-r-2 border-gray-200 ${open ? 'bg-gray-300 md:translate-x-0  sm:translate-x-105 translate-x-25 w-75 ' : 'translate-x-186'} md:translate-x-0`}>
         <div className="flex justify-between items-center m-8">
           <h2 className="text-2xl font-semibold md:hidden lg:block ">Instagram</h2>
           <button className="md:hidden" onClick={() => setOpen(false)}>
-            <p>close</p>
+            <i className="text-3xl ri-close-fill"></i>
           </button>
         </div>
         <nav className="w-fit flex flex-col gap-2">
@@ -53,6 +53,7 @@ export default function Sidebar() {
               <Link
                 key={item.path}
                 to={`${item.path}`}
+                state={{ open , setOpen }}
                 onClick={() => setOpen(false)}
                 className={`block py-2 px-3 rounded transition flex gap-4 items-center justify-left ${
                   location.pathname === item.path

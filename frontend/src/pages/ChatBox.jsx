@@ -3,7 +3,7 @@ import socket from "../utils/socket";
 import axios from "../utils/axios";
 
 
-function ChatBox({ currentUserId, selectedUserId }) {
+function ChatBox({ currentUserId, selectedUserId ,selectedUser ,setOpen}) {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [file, setFile] = useState(null);
@@ -11,6 +11,7 @@ function ChatBox({ currentUserId, selectedUserId }) {
   const [userSeen, setUserSeen] = useState(false);
   const [modal, setModal] = useState(null);
   const scrollRef = useRef(null);
+  console.log("sles",selectedUser)
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -100,7 +101,12 @@ function ChatBox({ currentUserId, selectedUserId }) {
   }, [messages]);
 
   return (
-    <div className="w-full h-full flex flex-col bg-white rounded shadow p-4 relative">
+    <div className="w-full h-full flex flex-col  rounded shadow p-4 relative ">
+      <div className="w-full flex items-center gap-1 mb-2">
+        <i onClick={()=>setOpen(false)} className={` md:hidden text-xl ri-arrow-left-line`}></i>
+        <img  className='w-11 rounded-full p-1' src={selectedUser.avatar} alt="" />
+        <span className="font-semibold">{selectedUser.username}</span>
+      </div>
       {/* Fullscreen Modal */}
       {modal && (
         <div
@@ -170,15 +176,18 @@ function ChatBox({ currentUserId, selectedUserId }) {
       </div>
 
       {/* Message Input */}
-      <div className="mt-4 flex gap-2 items-center">
+      <div className="mt-4 w-full flex gap-2 items-center justify-between">
         <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="border p-2 flex-1 rounded"
+          className="border  p-2 flex-1 rounded"
           placeholder="Type a message..."
         />
-        <input type="file" onChange={handleFileChange} />
+        <label className="">
+        <input type="file" className="hidden" onChange={handleFileChange} />
+        <i className="ri-upload-2-line text-2xl border p-1 rounded"></i>
+        </label>
         <button onClick={handleSend} className="bg-blue-500 text-white px-4 py-2 rounded">
           Send
         </button>
