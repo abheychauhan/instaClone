@@ -36,7 +36,7 @@ const io = socketIo(server, {
 }); 
 
 app.use(cors({
-  origin:'http://localhost:5173',
+  origin:'https://insta-clone-nine-beta.vercel.app/',
   credentials:true
 }));
 app.use(express.json());
