@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000"
+  baseURL: "https://instaclone-bw02.onrender.com"
 });
 
 // axios.interceptors.response.use(
