@@ -88,7 +88,7 @@ export default function Sidebar() {
 
       {/* Hamburger Button */}
       <button
-        className={` md:hidden ${open ? "hidden" : ""}    fixed top-4 right-4 z-50 bg-blue-600 text-white p-2 rounded `}
+        className={` md:hidden ${open ? "hidden" : ""}    fixed top-4 right-4 z-50 bg-blue-600 text-white p-2 rounded z-99 `}
         onClick={() => setOpen(true)}
       >
         <p>menu</p>
