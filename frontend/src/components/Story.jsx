@@ -15,10 +15,14 @@ function Story() {
       const res = await axios.get(`/stories?userId=${user.id}`);
       console.log(res.data)
       setLength(res.data.length)
-      console.log(length)
+      
       
       // Group stories by userId
       const groups = res.data.reduce((acc, story) => {
+          if (!story.userId || !story.userId._id) {
+              return acc; // Skip stories without a valid user
+            }
+
         const id = story.userId._id;
         if (!acc[id]) {
           acc[id] = { user: story.userId, stories: [] };

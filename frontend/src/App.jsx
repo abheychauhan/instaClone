@@ -31,7 +31,7 @@ function App() {
         <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/search" element={<ProtectedRoute><SearchUserPage /></ProtectedRoute>} />
         <Route path="/create" element={<ProtectedRoute><CreatePostPage /></ProtectedRoute>} />
-        <Route path="/msgs/:id" element={<ProtectedRoute><Messenger/></ProtectedRoute>} />
+        <Route path="/msgs" element={<ProtectedRoute><Messenger/></ProtectedRoute>} />
 
   {/* ✅ User profile route with dynamic id */}
   <Route path="/profile/:id" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />

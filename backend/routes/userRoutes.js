@@ -134,14 +134,28 @@ router.post('/:id/unfollow', async (req, res) => {
 router.get("/:id/followings", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
     const followingList = await Promise.all(
-      user.following.map((friendId) => User.findById(friendId))
+      user.following.map(async (friendId) => {
+        try {
+          return await User.findById(friendId).select("-password"); // exclude password
+        } catch (err) {
+          return null;
+        }
+      })
     );
-    const formatted = followingList.map((u) => ({
-      id: u._id,
-      username: u.username,
-      avatar: u.avartar,
-    }));
+
+    console.log("followlist:",followingList)
+
+    const formatted = followingList
+      .filter(Boolean)
+      .map((u) => ({
+        id: u._id,
+        username: u.username,
+        avatar: u.avartar,
+      }));
+
     res.status(200).json(formatted);
   } catch (error) {
     console.error("Followings fetch error:", error);
@@ -152,18 +166,32 @@ router.get("/:id/followings", async (req, res) => {
 router.get("/:id/followers", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
     const followerList = await Promise.all(
-      user.followers.map((friendId) => User.findById(friendId))
+      user.followers.map(async (friendId) => {
+        try {
+          return await User.findById(friendId).select("-password"); // exclude password
+        } catch (err) {
+          return null;
+        }
+      })
     );
-    const formatted = followerList.map((u) => ({
-      id: u._id,
-      username: u.username,
-      avatar: u.avartar,
-    }));
+
+    console.log("followers:",followerList)
+
+    const formatted = followerList
+      .filter(Boolean)
+      .map((u) => ({
+        id: u._id,
+        username: u.username,
+        avatar: u.avartar,
+      }));
+
     res.status(200).json(formatted);
   } catch (error) {
-    console.error("followers fetch error:", error);
-    res.status(500).json({ error: "Failed to fetch follower list" });
+    console.error("Followings fetch error:", error);
+    res.status(500).json({ error: "Failed to fetch following list" });
   }
 });
 
