@@ -23,7 +23,7 @@ export default function Sidebar() {
   return (
   <>
       {/* Sidebar */}
-      <div className={` fixed top-0 left-0 h-full z-99   p-4 lg:w-64 md:w-fit  z-50 transform transition-all duration-200 ease-in-out border-r-2 border-gray-200 ${open ? 'bg-gray-300 md:translate-x-0  sm:translate-x-105 translate-x-25 w-75 ' : 'translate-x-186'} md:translate-x-0`}>
+      <div className={` fixed top-0 left-0 h-full z-50   p-4 lg:w-64 md:w-fit  transform transition-all duration-200 ease-in-out border-r-2 border-gray-200 ${open ? 'bg-gray-300 md:translate-x-0  sm:translate-x-105 translate-x-25 w-75 ' : 'translate-x-186'} md:translate-x-0`}>
         <div className="flex justify-between items-center m-8">
           <h2 className="text-2xl font-semibold md:hidden lg:block ">Instagram</h2>
           <button className="md:hidden" onClick={() => setOpen(false)}>

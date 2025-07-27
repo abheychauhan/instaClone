@@ -9,6 +9,7 @@ export default function ProfilePage() {
   const [userData, setUserData] = useState(null);
   const {id} = useParams()
   const user = useSelector((state) => state.user.currentUser);
+  const [folloId , setfolloId] = useState([])
   console.log("Current user:", user);
   
   const [posts, setPosts] = useState([]);
@@ -38,7 +39,42 @@ export default function ProfilePage() {
           console.error("Failed to fetch posts:", err);
         }
       })();
+
+      const fetchFollowData = async () => {
+          try {
+
+            const currentUserFollowingsRes = await axios.get(`/users/${user.id}/followings`);
+      
+      
+            setfolloId(currentUserFollowingsRes.data.map((u) => u.id));
+          } catch (err) {
+            console.error('Error fetching follow list:', err);
+          }
+        };
+        fetchFollowData();
   }, [ id , commentTrigger]);
+
+
+const handleFollow = async () => {
+    if (!user?.id) {
+    console.warn("User ID not available");
+    return;
+  }
+    try {
+      const isFollowing = folloId.includes(id);
+        if (isFollowing){
+        await axios.post(`/users/${id}/unfollow`, { userId: user.id });
+        }else{
+        await axios.post(`/users/${user.id}/follow/${id}`);
+        setfolloId((prev) => [...prev, id]);
+
+        }
+        window.location.reload()
+
+    } catch (err) {
+        console.error("Failed to follow user", err);
+    }
+};
 
 
       const handleLike = async (postId) => {
@@ -106,7 +142,7 @@ export default function ProfilePage() {
 
   return (
     <div className=" mx-auto w-full  p-10 bg-white">
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-top gap-4 mb-6">
         <img
           src={userData.avartar || "https://static.vecteezy.com/system/resources/thumbnails/020/911/732/small/profile-icon-avatar-icon-user-icon-person-icon-free-png.png"}
           alt="Avatar"
@@ -120,6 +156,10 @@ export default function ProfilePage() {
             <span><b>{userData.following.length}</b> Following</span>
           </div>
           {showfollowers && (<FollowList id={id} setShowfollowers={setShowfollowers} />)} 
+          <div className={`flex ${user.id === id ?"hidden":""} gap-2 mt-5`}>
+            <button onClick={handleFollow} className={`px-4 py-1  bg-blue-500 ${folloId.includes(id) ? "bg-white border text-black" : "text-white"} rounded-2xl`}>{folloId.includes(id) ? "following" :"follow"}</button>
+            <button className="px-4 py-1 border rounded-2xl">message</button>
+          </div>
         </div>
       </div>
 

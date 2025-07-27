@@ -31,6 +31,7 @@ function Story() {
         return acc;
       }, {});
       setGroupedStories(Object.values(groups));
+      console.log(groupedStories)
     };
     getStories();
   }, [length]);
@@ -110,7 +111,7 @@ function Story() {
   return (
     <>
       {/* Horizontal Story Avatars */}
-      <div className="scrollbar-hide flex overflow-x-scroll gap-4 p-3">
+      <div className="scrollbar-hide flex overflow-x-scroll gap-4 p-3 ">
         {groupedStories.map((group, index) => (
           <div
             key={group.user._id}
@@ -118,7 +119,7 @@ function Story() {
             onClick={() => handleUserClick(index)}
           >
             <img
-              src={group.stories[0].mediaUrl}
+              src={group.user.avartar}
               alt="story"
               className="rounded-full h-20 w-20 object-cover border-2 border-pink-500"
             />
@@ -129,12 +130,12 @@ function Story() {
 
       {/* Fullscreen Viewer */}
       {activeUserIndex !== null && (
-        <div className="fixed w-full inset-0 z-50 bg-black bg-opacity-90 flex flex-col items-center justify-center">
+        <div className="fixed w-full inset-0 z-50 bg-black bg-opacity-90 flex flex-col items-center justify-center ">
           {/* Top progress bar */}
           
 
           {/* Media */}
-          <div className="max-w-[30%] h-full flex items-center justify-center relative">
+          <div className="md:max-w-[30%] h-full flex items-center justify-center relative">
             <div className="absolute top-0 left-0 w-full h-1 bg-gray-700">
             <div
               className="h-full bg-white transition-all duration-100 linear"
@@ -152,7 +153,6 @@ function Story() {
                 src={groupedStories[activeUserIndex].stories[activeStoryIndex].mediaUrl}
                 className="w-full h-full object-contain"
                 autoPlay
-                muted
               />
             )}
             <p className="absolute top-4 left-4 text-white text-lg font-semibold">

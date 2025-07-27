@@ -55,7 +55,7 @@ router.get("/", async (req, res) => {
 
     const stories = await Story.find({ userId: { $in: storyUsers } })
       .sort({ createdAt: -1 })
-      .populate("userId", "username");
+      .populate("userId", "username avartar");
 
     res.json(stories);
   } catch (err) {
