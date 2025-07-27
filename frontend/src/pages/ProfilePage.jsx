@@ -158,7 +158,7 @@ const handleFollow = async () => {
           {showfollowers && (<FollowList id={id} setShowfollowers={setShowfollowers} />)} 
           <div className={`flex ${user.id === id ?"hidden":""} gap-2 mt-5`}>
             <button onClick={handleFollow} className={`px-4 py-1  bg-blue-500 ${folloId.includes(id) ? "bg-white border text-black" : "text-white"} rounded-2xl`}>{folloId.includes(id) ? "following" :"follow"}</button>
-            <button className="px-4 py-1 border rounded-2xl">message</button>
+            <Link to={`/msgs/`} className="px-4 py-1 border rounded-2xl">message</Link>
           </div>
         </div>
       </div>

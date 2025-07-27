@@ -1,13 +1,18 @@
 import { useState } from "react";
 
-function PostComments({ post, user, handleDeleteComment }) {
+function PostComments({ post, user, handleDeleteComment ,commentInput, setCommentInput , handleComment }) {
   const [showAllComments, setShowAllComments] = useState(false);
 
   return (
-    <div className="mb-2">
-      <p className="font-semibold text-gray-700 mb-1">Comments:</p>
+    <div className="">
+      <button onClick={()=>setShowAllComments(true)} className="flex items-center">
+         <i className="ri-chat-3-line text-2xl "></i>
+         {post.comments.length > 0 ? <span>{post.comments.length}</span> :"" }
+         
+      </button>
 
-      {post.comments.length > 0 &&
+
+      {/* {post.comments.length > 0 &&
         post.comments.slice(0,1).map((c, i) => (
           <p key={i} className="text-sm text-gray-600">
             <span>
@@ -31,7 +36,7 @@ function PostComments({ post, user, handleDeleteComment }) {
         >
           See more...
         </button>
-      )}
+      )} */}
 
       {/* Modal-like card for all comments */}
       {showAllComments && (
@@ -60,6 +65,29 @@ function PostComments({ post, user, handleDeleteComment }) {
                 )}
               </p>
             ))}
+             <div className="flex gap-2">
+                            <input
+                                type="text"
+                                placeholder="Add a comment"
+                                value={commentInput[post._id]?.text || ""}
+                                onChange={(e) =>
+                                    setCommentInput((prev) => ({
+                                        ...prev,
+                                        [post._id]: {
+                                            userId: user.id,
+                                            text: e.target.value,
+                                        },
+                                    }))
+                                }
+                                className="flex-grow border px-2 py-1 rounded"
+                            />
+                            <button
+                                onClick={() => handleComment(post._id)}
+                                className="bg-blue-500 text-white px-3 py-1 rounded"
+                            >
+                                Post
+                            </button>
+                        </div>
           </div>
         </div>
       )}

@@ -3,7 +3,7 @@ import socket from "../utils/socket";
 import axios from "../utils/axios";
 
 
-function ChatBox({ currentUserId, selectedUserId ,selectedUser ,setOpen}) {
+function ChatBox({ currentUserId, selectedUserId ,selectedUser ,setOpen ,moveToTop}) {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [file, setFile] = useState(null);
@@ -81,6 +81,10 @@ function ChatBox({ currentUserId, selectedUserId ,selectedUser ,setOpen}) {
       setFilePreview(null);
     } catch (err) {
       console.error("Send error:", err);
+    }
+
+    if (typeof moveToTop === "function") {
+      moveToTop(selectedUserId); // 👈 Move to top after sending
     }
   };
 

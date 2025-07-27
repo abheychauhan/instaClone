@@ -15,6 +15,7 @@ const Messenger = () => {
   const [open, setOpen] = useState(false);
 
   const user = useSelector((state)=>state.user.currentUser)
+  
   console.log(user)
   const handelSetting =(user)=>{
     setSelectedUser(user.id)
@@ -25,15 +26,44 @@ const Messenger = () => {
     setOpen(true)
   }
  const id = user.id
-  useEffect(() => {
-    // Fetch all users (excluding yourself)
-    const fetchUsers = async () => {
-      const res = await axios.get(`/users/${id}/followings`);
-      console.log("following user:",res.data)
-      setAllUsers(res.data.filter((user) => user.id !== id));
-    };
-    fetchUsers();
-  }, [id]);
+useEffect(() => {
+  const fetchUsers = async () => {
+    const res = await axios.get(`/users/${id}/followings`);
+    const fetchedUsers = res.data.filter((user) => user.id !== id);
+
+    const savedOrder = JSON.parse(localStorage.getItem("userOrder"));
+
+    if (Array.isArray(savedOrder)) {
+      const idToUser = {};
+      fetchedUsers.forEach((u) => {
+        idToUser[u.id] = u;
+      });
+
+      const orderedUsers = savedOrder.map(id => idToUser[id]).filter(Boolean);
+      const newUsers = fetchedUsers.filter(u => !savedOrder.includes(u.id));
+
+      setAllUsers([...orderedUsers, ...newUsers]);
+    } else {
+      setAllUsers(fetchedUsers);
+    }
+  };
+
+  fetchUsers();
+}, [id]);
+
+const moveToTop = (userId) => {
+  const updated = [...allUsers];
+  const index = updated.findIndex((u) => u.id === userId);
+  if (index !== -1) {
+    const [userToMove] = updated.splice(index, 1);
+    const newOrder = [userToMove, ...updated];
+    setAllUsers(newOrder);
+    // Save the order of user IDs in localStorage
+    localStorage.setItem("userOrder", JSON.stringify(newOrder.map(u => u.id)));
+  }
+};
+
+
 
   return (
     <div className="flex h-screen bg-gray-100  ">
@@ -57,7 +87,7 @@ const Messenger = () => {
       {/* Right: ChatBox */}
       <div className={`md:w-3/4 w-full  md:block ${open ? 'block' : "hidden"}`}>
         {selectedUser ? (
-          <ChatBox currentUserId={id} selectedUserId={selectedUser} selectedUser={selectedUserData} setOpen={setOpen} />
+          <ChatBox currentUserId={id} selectedUserId={selectedUser} selectedUser={selectedUserData} setOpen={setOpen}  moveToTop={moveToTop} />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-400">
             Select a user to start chatting
