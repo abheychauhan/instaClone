@@ -175,43 +175,21 @@ const handleFollow = async () => {
                         <img src={post.image} alt="Post" className="w-full h-40  object-cover rounded mb-2" />
                         <p className="font-medium text-gray-600 mb-2">{post.caption}</p>
     
-                        {/* Like Button */}
-                        <button
-                            className="text-blue-600 font-semibold mb-2"
-                            onClick={() => handleLike(post._id)}
-                        >
-                            ❤️ {post.likes.length} {post.likes.includes(user.id) ? "Unlike" : "Like"}
-                        </button>
-    
-                        {/* Comments List */}
-                        <div className="mb-2">
-                           <PostComments post={post} user={user} handleDeleteComment={handleDeleteComment} />
-                        </div>
-    
-                        {/* Add Comment Input */}
-                        <div className="flex w-fit gap-2">
-                            <input
-                                type="text"
-                                placeholder="Add a comment"
-                                value={commentInput[post._id]?.text || ""}
-                                onChange={(e) =>
-                                    setCommentInput((prev) => ({
-                                        ...prev,
-                                        [post._id]: {
-                                            userId: user.id,
-                                            text: e.target.value,
-                                        },
-                                    }))
-                                }
-                                className="flex-grow border px-2 py-1 rounded"
-                            />
-                            <button
-                                onClick={() => handleComment(post._id)}
-                                className="bg-blue-500 text-white px-3 py-1 rounded"
-                            >
-                                Post
-                            </button>
-                        </div>
+              <div className="flex items-center gap-2">
+                {/* Like Button */}
+                <button
+                  className=""
+                  onClick={() => handleLike(post._id)}
+                >
+                  <i className={`ri-heart-line text-2xl ${post.likes.includes(user.id) ? "text-red-500" : "text-black"}`}></i>{post.likes.length}
+                </button>
+
+                {/* Comments List */}
+                <div className="">
+                  <PostComments post={post} user={user} handleDeleteComment={handleDeleteComment} commentInput={commentInput} setCommentInput={setCommentInput} handleComment={handleComment} />
+                </div>
+              </div>
+                       
                     </div>
                 ))
         )}

@@ -11,6 +11,7 @@ import SettingsPage from "./pages/SettingsPage";
 import SearchUserPage from "./pages/SearchUserPage";
 import Messenger from "./pages/Messenger";
 import { useSelector } from "react-redux";
+import About from "./pages/About";
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,8 @@ function App() {
         <Route path="/search" element={<ProtectedRoute><SearchUserPage /></ProtectedRoute>} />
         <Route path="/create" element={<ProtectedRoute><CreatePostPage /></ProtectedRoute>} />
         <Route path="/msgs" element={<ProtectedRoute><Messenger/></ProtectedRoute>} />
+        <Route path="/about" element={<About/>} />
+
 
   {/* ✅ User profile route with dynamic id */}
   <Route path="/profile/:id" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
