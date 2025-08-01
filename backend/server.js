@@ -28,7 +28,7 @@ connectDB();
 
 const io = socketIo(server, {
     cors: {
-        origin: 'https://insta-clone-nine-beta.vercel.app',
+        origin: '*',
         methods: ['GET', 'POST'],
         allowedHeaders: ['Content-Type'],
         credentials: true
@@ -36,7 +36,7 @@ const io = socketIo(server, {
 }); 
 
 app.use(cors({
-  origin:'*',
+  origin:'https://insta-clone-nine-beta.vercel.app',
   credentials:true
 }));
 
