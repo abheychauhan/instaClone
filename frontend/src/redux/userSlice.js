@@ -1,22 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Initialize from sessionStorage (per tab)
-let initialUser = null;
-
-try {
-  const userSession = sessionStorage.getItem("user");
-  if (userSession) {
-    initialUser = JSON.parse(userSession);
+const getInitialUser = () => {
+  try {
+    const storedUser = sessionStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  } catch (err) {
+    console.error("Failed to parse user from sessionStorage:", err);
+    sessionStorage.removeItem("user");
+    return null;
   }
-} catch (error) {
-  console.error("Error parsing session user:", error);
-  sessionStorage.removeItem("user");
-  initialUser = null;
-}
+};
+
+const initialState = {
+  currentUser: getInitialUser(),
+};
 
 const userSlice = createSlice({
   name: "user",
-  initialState: { currentUser: initialUser },
+  initialState,
   reducers: {
     loginSuccess: (state, action) => {
       state.currentUser = action.payload;

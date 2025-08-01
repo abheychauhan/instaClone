@@ -12,7 +12,9 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post("/auth/login", form);
+      const res = await axios.post("/auth/login", form, {
+        withCredentials: true
+      });
       dispatch(loginSuccess(res.data.user));
       console.log(res)
       navigate("/home");

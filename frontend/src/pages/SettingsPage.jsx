@@ -8,9 +8,18 @@ export default function SettingsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 console.log(user)
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/login");
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/auth/logout", {}, {
+        withCredentials: true,
+      });
+     dispatch(logout());
+     navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+
   };
 
   const handleDeleteAccount = async () => {
