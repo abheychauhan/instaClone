@@ -23,14 +23,14 @@ export default function Sidebar() {
   return (
   <>
       {/* Sidebar */}
-      <div className={` fixed  top-0 left-0 h-full z-99 md:z-50   p-4 lg:w-64 md:w-fit  transform transition-all duration-200 ease-in-out border-r-2 border-gray-200 ${open ? 'bg-gray-300 md:translate-x-0  sm:translate-x-105 translate-x-25 w-75 ' : 'translate-x-186'} md:translate-x-0`}>
-        <div className="flex justify-between items-center m-8">
+      <div className={` fixed w-screen  bottom-0 bg-white p-2 ${location.pathname === "/msgs" ? "hidden" : ""}  md:top-0 md:left-0 md:h-full z-50   md:p-4 lg:w-64 md:w-fit  border-r-2 border-gray-200`}>
+        <div className="flex hidden md:block justify-between items-center m-8">
           <h2 className="text-2xl font-semibold md:hidden lg:block ">Instagram</h2>
           <button className="md:hidden" onClick={() => setOpen(false)}>
             <i className="text-3xl ri-close-fill"></i>
           </button>
         </div>
-        <nav className="w-fit flex flex-col gap-2">
+        <nav className="w-fit flex items-center justify-center md:flex-col gap-5 md:gap-2">
           {navItems.map((item) => {
           if (item.label === "Profile") {
             return (
@@ -38,14 +38,14 @@ export default function Sidebar() {
                 key={item.path}
                 to={`${item.path}/${id}`}
                 onClick={() => setOpen(false)}
-                className={`block py-2 px-3 rounded transition flex gap-4 items-center justify-left ${
+                className={`block py-2 px-3 rounded-2xl transition flex gap-4 items-center justify-left ${
                   location.pathname === `${item.path}/${User.id}`
                     ? 'bg-gray-200 font-semibold'
                     : 'hover:bg-gray-200'
                 }`}
               >
-                <i className={`text-2xl ${item.icon}`}></i>
-                <span className='md:hidden lg:block'>{item.label}</span>
+                <i className={`text-3xl md:text-2xl ${item.icon}`}></i>
+                <span className='hidden lg:block'>{item.label}</span>
               </Link>
             );
           } else if (item.label === "Messages") {
@@ -54,14 +54,14 @@ export default function Sidebar() {
                 key={item.path}
                 to={`${item.path}`}
                 onClick={() => setOpen(false)}
-                className={`block py-2 px-3 rounded transition flex gap-4 items-center justify-left ${
+                className={`block py-2 px-3 rounded-2xl transition flex gap-4 items-center justify-left ${
                   location.pathname === item.path
                     ? 'bg-blue-200 font-semibold'
                     : 'hover:bg-blue-100'
                 }`}
               >
-                <i className={`text-2xl ${item.icon}`}></i>
-                <span className='md:hidden lg:block'>{item.label}</span>
+                <i className={`text-3xl md:text-2xl ${item.icon}`}></i>
+                <span className='hidden lg:block'>{item.label}</span>
               </Link>
             );
           } else {
@@ -70,14 +70,14 @@ export default function Sidebar() {
                 key={item.path}
                 to={item.path}
                 onClick={() => setOpen(false)}
-                className={`block py-2 px-3 rounded transition flex gap-4 items-center justify-left ${
+                className={`block py-2 px-3 rounded-2xl transition flex gap-4 items-center justify-left ${
                   location.pathname === item.path
                     ? 'bg-gray-200 font-semibold'
                     : 'hover:bg-gray-200'
                 }`}
               >
-                <i className={`text-2xl ${item.icon}`}></i>
-                <span className='md:hidden lg:block'>{item.label}</span>
+                <i className={`text-3xl md:text-2xl ${item.icon}`}></i>
+                <span className='hidden lg:block'>{item.label}</span>
               </Link>
             );
           }
@@ -86,13 +86,13 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {/* Hamburger Button */}
+      {/* Hamburger Button
       <button
         className={` md:hidden ${open ? "hidden" : ""}    fixed top-4 right-4 z-50 bg-blue-600 text-white p-2 rounded z-99 `}
         onClick={() => setOpen(true)}
       >
         <p>menu</p>
-      </button>
+      </button> */}
 </>
   );
 }

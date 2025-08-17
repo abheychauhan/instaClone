@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ChatBox from './ChatBox';
 import axios from '../utils/axios';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Messenger = () => {
@@ -11,7 +11,7 @@ const Messenger = () => {
     username :'',
     avatar : ''
   });
-
+ const navigate = useNavigate()
   const [open, setOpen] = useState(false);
 
   const user = useSelector((state)=>state.user.currentUser)
@@ -58,7 +58,6 @@ const moveToTop = (userId) => {
     const [userToMove] = updated.splice(index, 1);
     const newOrder = [userToMove, ...updated];
     setAllUsers(newOrder);
-    // Save the order of user IDs in localStorage
     localStorage.setItem("userOrder", JSON.stringify(newOrder.map(u => u.id)));
   }
 };
@@ -69,7 +68,13 @@ const moveToTop = (userId) => {
     <div className="flex h-screen bg-gray-100  ">
       {/* Left sidebar: Users List */}
       <div className={`md:w-1/4 w-full md:block  border-r p-4 overflow-y-auto ${open ? "hidden" : ""}`}>
-        <h2 className="font-bold mb-4">Chats</h2>
+        <div className='flex items-center h-fit w-fit gap-2 mb-5'>
+          <button className="md:hidden" onClick={() => (navigate('/home')) }>
+            <i className="text-2xl ri-arrow-left-line"></i>
+          </button>
+          <h2 className="font-bold">Chats</h2>
+
+        </div>
         {allUsers.map((user) => (
           <div
             key={user.id}

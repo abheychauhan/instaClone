@@ -105,7 +105,7 @@ function ChatBox({ currentUserId, selectedUserId ,selectedUser ,setOpen ,moveToT
   }, [messages]);
 
   return (
-    <div className="w-full h-full flex flex-col  rounded shadow p-4 relative ">
+    <div className="w-full h-full flex flex-col  rounded shadow p-4 relative z-99">
       <div className="w-full flex items-center gap-1 mb-2">
         <i onClick={()=>setOpen(false)} className={` md:hidden text-xl ri-arrow-left-line`}></i>
         <img  className='w-11 rounded-full p-1' src={selectedUser.avatar} alt="" />
@@ -136,7 +136,7 @@ function ChatBox({ currentUserId, selectedUserId ,selectedUser ,setOpen ,moveToT
       )}
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto gap-1 py-4 scrollbar-hide flex flex-col">
+      <div className="flex-1 z-99 overflow-y-auto gap-1 py-4 scrollbar-hide flex flex-col">
         {messages.map((msg, i) => (
           <div
             key={i}

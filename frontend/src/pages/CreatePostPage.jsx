@@ -56,7 +56,7 @@ export default function CreatePostPage() {
   };
 
   return (
- <div className="max-w-xl mx-auto p-10 mb-10  mt-50 border border-gray-300 shadow-xl rounded-2xl">
+ <div className="max-w-xl md:mx-auto p-10 mb-10 mt-5 md:mt-50 md:border border-gray-300 md:shadow-xl rounded-2xl">
       <h2 className="text-xl font-semibold mb-4 text-center">Create Post</h2>
 
       {preview && (
