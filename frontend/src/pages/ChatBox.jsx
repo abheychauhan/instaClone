@@ -136,7 +136,7 @@ function ChatBox({ currentUserId, selectedUserId ,selectedUser ,setOpen ,moveToT
       )}
 
       {/* Messages */}
-      <div className="flex-1 z-99 overflow-y-auto gap-1 py-4 scrollbar-hide flex flex-col">
+      <div className="flex-1 z-49 overflow-y-auto gap-1 py-4 scrollbar-hide flex flex-col">
         {messages.map((msg, i) => (
           <div
             key={i}

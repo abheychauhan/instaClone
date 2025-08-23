@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "../utils/axios";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Suggestions() {
   const [suggestions, setSuggestions] = useState([]);
@@ -45,7 +46,7 @@ export default function Suggestions() {
         <p>No suggestions</p>
       ) : (
         suggestions.map((sugg) => (
-          <div key={sugg._id} className="flex items-center justify-between mb-5">
+          <Link to={`/profile/${sugg._id}`} key={sugg._id} className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-5">
               <img
                 src={`${sugg.avartar || "https://static.vecteezy.com/system/resources/thumbnails/020/911/732/small/profile-icon-avatar-icon-user-icon-person-icon-free-png.png"}`}
@@ -60,7 +61,7 @@ export default function Suggestions() {
             >
               {followId.includes(sugg._id) ? "Following" : "Follow"}
             </button>
-          </div>
+          </Link>
         ))
       )}
     </div>
