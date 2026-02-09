@@ -3,28 +3,44 @@ import axios from "../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/userSlice";
+import loadingImg from "../assets/loading.gif";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [loading , setLoading] = useState(false);
+
+
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
+
       const res = await axios.post("/auth/login", form, {
         withCredentials: true
       });
       dispatch(loginSuccess(res.data.user));
+
       console.log(res)
+      
       navigate("/home");
     } catch (err) {
       alert("Login failed");
+    } finally {
+      setLoading(false);
     }
+    
   };
 
-  return (
+
+  return ( 
+
     <div className="w-full flex justify-center items-center min-h-screen bg-gray-100">
+       <div className={`w-fit h-fit absolute ${loading ? "block" : "hidden"} flex justify-center items-center`}>
+        <img className="w-20" src={loadingImg} alt="Loading..." />
+      </div>
       <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow w-80">
         <h2 className="text-xl font-bold mb-4">Login</h2>
         <input
