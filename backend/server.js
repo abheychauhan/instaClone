@@ -3,9 +3,11 @@ const socketIo = require('socket.io');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const dns = require('dns');
 require('dotenv').config();
-
+dns.setServers(["1.1.1.1","8.8.8.8"]);
 const app = express();
+
 
 
 const server = require('http').createServer(app);
