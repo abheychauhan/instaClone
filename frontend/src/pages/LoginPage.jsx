@@ -27,7 +27,7 @@ export default function LoginPage() {
       
       navigate("/home");
     } catch (err) {
-      alert("Login failed");
+      alert(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }

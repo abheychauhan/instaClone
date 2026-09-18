@@ -4,7 +4,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const dns = require('dns');
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 dns.setServers(["1.1.1.1","8.8.8.8"]);
 const app = express();
 
